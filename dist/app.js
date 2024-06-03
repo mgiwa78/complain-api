@@ -45,16 +45,19 @@ const error_handlers_1 = require("./middleware/error-handlers");
 const not_found_error_1 = require("./errors/not-found-error");
 const app = (0, express_1.default)();
 exports.app = app;
-const whitelist = ["http://localhost:3000", "https://complain-app.vercel.app/"];
+const whitelist = ["http://localhost:3000", "https://complain-app.vercel.app"];
+// const corsOptions = {
+//   origin: function (origin: any, callback: any) {
+//     if (!origin || whitelist.indexOf(origin) !== -1) {
+//       callback(null, true);
+//     } else {
+//       callback(new Error("Not allowed by CORS"));
+//     }
+//   },
+//   credentials: true,
+// };
 const corsOptions = {
-    origin: function (origin, callback) {
-        if (!origin || whitelist.indexOf(origin) !== -1) {
-            callback(null, true);
-        }
-        else {
-            callback(new Error("Not allowed by CORS"));
-        }
-    },
+    origin: "*",
     credentials: true,
 };
 app.use((0, cors_1.default)(corsOptions));
