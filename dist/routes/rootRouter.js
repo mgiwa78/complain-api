@@ -12,7 +12,7 @@ const complainTypesRouter_1 = __importDefault(require("./complainTypesRouter"));
 const compainResponse_1 = __importDefault(require("./compainResponse"));
 let rootRouter = (0, express_1.Router)();
 rootRouter.get("/", (req, res) => {
-    res.send("Supervised API is online and running");
+    res.send("Complain API is online and running");
 });
 rootRouter.use("/auth", auth_1.default);
 rootRouter.use("/roles", rolesRouter_1.default);

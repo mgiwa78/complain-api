@@ -14,7 +14,7 @@ import complainResponseRouter from "./compainResponse";
 let rootRouter = Router();
 
 rootRouter.get("/", (req, res) => {
-  res.send("Supervised API is online and running");
+  res.send("Complain API is online and running");
 });
 
 rootRouter.use("/auth", authRouter);
