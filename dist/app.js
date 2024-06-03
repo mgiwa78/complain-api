@@ -45,7 +45,7 @@ const error_handlers_1 = require("./middleware/error-handlers");
 const not_found_error_1 = require("./errors/not-found-error");
 const app = (0, express_1.default)();
 exports.app = app;
-const whitelist = ["http://localhost:3000"];
+const whitelist = ["http://localhost:3000", "https://complain-app.vercel.app/"];
 const corsOptions = {
     origin: function (origin, callback) {
         if (!origin || whitelist.indexOf(origin) !== -1) {

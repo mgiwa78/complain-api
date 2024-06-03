@@ -9,7 +9,7 @@ import { errorHandler } from "./middleware/error-handlers";
 import { NotFoundError } from "./errors/not-found-error";
 const app = express();
 
-const whitelist = ["http://localhost:3000"];
+const whitelist = ["http://localhost:3000", "https://complain-app.vercel.app/"];
 
 const corsOptions = {
   origin: function (origin: any, callback: any) {
