@@ -9,16 +9,21 @@ import { errorHandler } from "./middleware/error-handlers";
 import { NotFoundError } from "./errors/not-found-error";
 const app = express();
 
-const whitelist = ["http://localhost:3000", "https://complain-app.vercel.app/"];
+const whitelist = ["http://localhost:3000", "https://complain-app.vercel.app"];
+
+// const corsOptions = {
+//   origin: function (origin: any, callback: any) {
+//     if (!origin || whitelist.indexOf(origin) !== -1) {
+//       callback(null, true);
+//     } else {
+//       callback(new Error("Not allowed by CORS"));
+//     }
+//   },
+//   credentials: true,
+// };
 
 const corsOptions = {
-  origin: function (origin: any, callback: any) {
-    if (!origin || whitelist.indexOf(origin) !== -1) {
-      callback(null, true);
-    } else {
-      callback(new Error("Not allowed by CORS"));
-    }
-  },
+  origin: "*",
   credentials: true,
 };
 
