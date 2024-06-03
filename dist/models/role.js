@@ -28,7 +28,6 @@ exports.Role = void 0;
 const mongoose_1 = __importStar(require("mongoose"));
 const roleSchema = new mongoose_1.Schema({
     name: { type: String, required: true },
-    permissions: [{ type: mongoose_1.Schema.Types.ObjectId, ref: "Permission" }]
 });
 roleSchema.set("timestamps", true);
 const Role = (((_a = mongoose_1.default.models) === null || _a === void 0 ? void 0 : _a.Role) ||

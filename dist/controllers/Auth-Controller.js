@@ -17,37 +17,29 @@ const user_1 = require("../models/user");
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const password_1 = require("../services/password");
 const __CONSTANTS__1 = require("../__CONSTANTS__");
-const role_1 = require("../models/role");
-const notification_1 = require("../_utils/notification");
 const SignIn__AUTH__POST = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { email, password } = req.body;
+    console.log(email);
     try {
-        const user = yield user_1.User.findOne({ email: email })
-            .populate("department")
-            .exec();
+        const user = yield user_1.User.findOne({ email: email }).populate("role");
         if (!user) {
             return res.status(400).json({ error: "Invalid credentials" });
         }
         const verifyPassword = yield password_1.Password.compare(user.password, password);
         if (verifyPassword) {
-            const roles = yield role_1.Role.find({ _id: { $in: user.roles } });
-            const department = yield user_1.Department.findOne({ _id: user.department });
             const userData = {
                 _id: user._id,
-                firstName: user.firstName,
-                lastName: user.lastName,
+                fullName: user.fullName,
                 email: user.email,
-                department: department,
-                avatar: user.avatar,
-                roles: roles
+                contactNumber: user.contactNumber,
+                preference: user.preference,
+                role: user.role,
             };
             const currentDate = new Date();
-            const dateAndTime = currentDate.toLocaleString();
             const token = jsonwebtoken_1.default.sign({ user: userData }, __CONSTANTS__1.JWT_SECRET);
-            yield (0, notification_1.sendNotification)("LOGIN_DETECTED", { user, dateAndTime });
             return res.status(200).json({
                 userAuth: userData,
-                userJwt: token
+                userJwt: token,
             });
         }
         return res.status(400).json({ message: "Invalid user credentials" });
@@ -71,7 +63,7 @@ const SignUp__AUTH__POST = (req, res) => __awaiter(void 0, void 0, void 0, funct
             password: hashedPassword,
             firstName: firstName,
             lastName: lastName,
-            roles: roles
+            roles: roles,
         });
         const userData = Object.assign(Object.assign({}, user.toObject()), { password: null });
         const token = jsonwebtoken_1.default.sign({ user: userData }, __CONSTANTS__1.JWT_SECRET);
@@ -80,7 +72,7 @@ const SignUp__AUTH__POST = (req, res) => __awaiter(void 0, void 0, void 0, funct
         console.log("decoded:", decoded);
         res.json({
             status: "success",
-            data: { userAuth: userData, userJwt: token }
+            data: { userAuth: userData, userJwt: token },
         });
     }
     catch (error) {

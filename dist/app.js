@@ -45,15 +45,7 @@ const error_handlers_1 = require("./middleware/error-handlers");
 const not_found_error_1 = require("./errors/not-found-error");
 const app = (0, express_1.default)();
 exports.app = app;
-const whitelist = [
-    "http://localhost:3012",
-    "http://localhost:3011",
-    "https://supervised-client.vercel.app",
-    "https://supervised-client.vercel.app/",
-    "https://supervised-prod.vercel.app/auth",
-    "https://supervised-prod.vercel.app/",
-    "http://localhost:3013"
-];
+const whitelist = ["http://localhost:3000"];
 const corsOptions = {
     origin: function (origin, callback) {
         if (!origin || whitelist.indexOf(origin) !== -1) {
@@ -63,23 +55,12 @@ const corsOptions = {
             callback(new Error("Not allowed by CORS"));
         }
     },
-    credentials: true
+    credentials: true,
 };
-// io.on("connection", (socket: any) => {
-//   console.log("A user connected");
-//   socket.on("eventName", (data: any) => {
-//     console.log("Received data:", data);
-//   });
-// });
-app.use("public/uploads/documents", express_1.default.static("public/uploads/documents"));
-app.use("uploads/docs", express_1.default.static("uploads/docs"));
 app.use((0, cors_1.default)(corsOptions));
 app.set("trust proxy", true);
 app.use(body_parser_1.default.json());
 app.use((0, body_parser_1.json)());
-// app.use(
-//   cookieSession({ signed: false, secure: process.env.NODE_ENV !== "test" })
-// );
 app.use(rootRouter_1.default);
 app.all("*", (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     next(new not_found_error_1.NotFoundError());

@@ -16,7 +16,6 @@ exports.verifyPasswordRequestTokenController = exports.passwordUpdateController 
 const password_1 = require("../services/password");
 const __CONSTANTS__1 = require("../__CONSTANTS__");
 const user_1 = require("../models/user");
-const sendResetPasswordMail_1 = __importDefault(require("../services/mail/sendResetPasswordMail"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const forgotPasswordController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
@@ -26,9 +25,8 @@ const forgotPasswordController = (req, res) => __awaiter(void 0, void 0, void 0,
             return res.status(404).json({ error: "User not found" });
         }
         const resetToken = jsonwebtoken_1.default.sign({ email }, __CONSTANTS__1.JWT_SECRET, {
-            expiresIn: "1h"
+            expiresIn: "1h",
         });
-        const mailResponse = yield (0, sendResetPasswordMail_1.default)(email, resetToken);
         res.json({ message: "Reset token sent to your email" });
     }
     catch (error) {

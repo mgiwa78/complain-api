@@ -2,7 +2,6 @@ import { Router } from "express";
 import { body } from "express-validator";
 import { AuthenticateUser } from "../middleware/require-auth";
 
-import { hasPermission } from "../middleware/has-permission";
 import {
   Create__COMPLAIN_RESPONSE__POST,
   Delete__COMPLAIN_RESPONSE__DELETE,

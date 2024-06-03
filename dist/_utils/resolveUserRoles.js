@@ -14,8 +14,7 @@ const mongodb_1 = require("mongodb");
 const resolveUserRoles = (id) => __awaiter(void 0, void 0, void 0, function* () {
     const UserID = new mongodb_1.ObjectId(id);
     const userWithRole = yield user_1.User.findOne({ _id: UserID });
-    console.log(userWithRole);
-    return userWithRole === null || userWithRole === void 0 ? void 0 : userWithRole.roles;
+    return userWithRole === null || userWithRole === void 0 ? void 0 : userWithRole.role;
 });
 exports.default = resolveUserRoles;
 //# sourceMappingURL=resolveUserRoles.js.map
